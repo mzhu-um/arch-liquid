@@ -1,2 +1,2 @@
 #!/bin/bash 
-docker build --rm -t "arch-ocaml:Dockerfile" .
+docker build --no-cache --rm -t "arch-ocaml:Dockerfile" .

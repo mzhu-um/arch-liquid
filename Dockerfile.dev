@@ -15,7 +15,7 @@ RUN opam init -y -a; \
     opam update; \
     opam switch -y create work 4.14.0; \
     opam switch work; \
-    eval $(opam env) && opam install -y dune ounit ppx_deriving && opam clean; \
+    eval $(opam env) && opam install -y dune ounit ppx_deriving utop merlin user-setup ocaml-format ocaml-lsp-server && opam clean; \
     rm -rf /tmp/*
 
 WORKDIR /home/ocaml
