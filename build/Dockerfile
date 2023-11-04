@@ -6,7 +6,7 @@ RUN printf 'Server = http://mirror.umd.edu/archlinux/$repo/os/$arch\n' > /etc/pa
     pacman -Syu --noconfirm; \
     pacman -S coreutils diffutils patch gcc git make ocaml opam vim make --noconfirm; \
     rm -rf /var/cache/pacman/pkg; \
-    useradd ocaml -m
+    useradd ocaml -m -u 2000
 
 USER ocaml
 

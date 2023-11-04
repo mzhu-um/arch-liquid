@@ -1,0 +1,13 @@
+{
+    "name": "Liquid Haskell Development Environment",
+    "build" : {
+        "dockerfile": "Dockerfile.dev"
+    },
+    "image": "mzhu65536/arch-liquid:latest",
+    "customizations" : {
+        "vscode": {
+            "extensions" : ["haskell.haskell"]
+        }
+    },
+    "remoteUser": "liquid"
+}
