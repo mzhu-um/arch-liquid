@@ -1,0 +1,32 @@
+FROM archlinux/archlinux
+
+# Install Prerequisite
+RUN printf 'Server = http://mirror.umd.edu/archlinux/$repo/os/$arch\n' > /etc/pacman.d/mirrorlist; \
+    pacman-key --init; \
+    pacman -Sy archlinux-keyring --noconfirm; \
+    pacman-key --populate; \
+    pacman -Syu --noconfirm; \
+    pacman -S sudo coreutils diffutils perl curl patch gcc git make gmp ncurses z3 p7zip which --noconfirm; \
+    rm -rf /var/cache/pacman/pkg; \
+    useradd liquid -m
+
+# Get permissions corrected
+RUN usermod --password 0000 root; \
+    usermod --password 0000 liquid; \
+    echo "ALL=(ALL) NOPASSWD" > /etc/sudoers
+
+USER liquid
+ENV PATH /home/liquid/.cabal/bin:/home/liquid/.ghcup/bin:/home/liquid/.local/bin:$PATH
+
+SHELL ["/bin/bash", "-c"]
+
+# Extract pre-compiled caches & binaries
+COPY liquid/liquid.7z /home/liquid/
+RUN cd /home/liquid/; \
+    7z x liquid.7z; \
+    rm /home/liquid/liquid.7z
+
+# Okay... Done...
+
+WORKDIR /home/liquid
+ENTRYPOINT ["/bin/bash", "-l"]

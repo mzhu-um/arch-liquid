@@ -1,9 +1,9 @@
 {
     "name": "Liquid Haskell Development Environment",
     "build" : {
-        "dockerfile": "Dockerfile.dev"
+        "dockerfile": "Dockerfile.mini"
     },
-    "image": "mzhu65536/arch-liquid:latest",
+    "image": "mzhu65536/arch-liquid:mini",
     "customizations" : {
         "vscode": {
             "extensions" : ["haskell.haskell"]

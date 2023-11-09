@@ -1,0 +1,29 @@
+FROM archlinux/archlinux
+
+# Install Prerequisite
+RUN printf 'Server = http://mirror.umd.edu/archlinux/$repo/os/$arch\n' > /etc/pacman.d/mirrorlist; \
+    pacman-key --init; \
+    pacman -Sy archlinux-keyring --noconfirm; \
+    pacman-key --populate
+
+RUN pacman -Syu --noconfirm
+
+RUN pacman -S coreutils diffutils perl curl patch gcc git make gmp ncurses z3 --noconfirm; \
+    rm -rf /var/cache/pacman/pkg; \
+    useradd liquid -m
+
+USER liquid
+ENV PATH /home/liquid/.cabal/bin:/home/liquid/.ghcup/bin:/home/liquid/.local/bin:$PATH
+
+# Install HIE support
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=9.2.5 sh
+
+SHELL ["/bin/bash", "-c"]
+RUN ghcup install hls 1.9.0.0; \
+    ghcup install stack 
+
+
+# Initialize OPAM and build working switch
+
+WORKDIR /home/liquid
+ENTRYPOINT ["/bin/bash", "-l"]
