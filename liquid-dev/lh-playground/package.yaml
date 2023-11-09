@@ -1,0 +1,21 @@
+name: lh-playground
+version: '0.2.0.0'
+
+dependencies:
+- base
+- liquidhaskell-boot
+- liquid-prelude
+- liquidhaskell
+- liquid-vector
+- liquid-fixpoint
+- vector
+- containers
+
+library:
+  ghc-options: -fplugin=LiquidHaskell
+
+  source-dirs:
+    - src
+
+  # exposed-modules:
+  #   - Main
